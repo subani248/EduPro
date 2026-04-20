@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Libraries for Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">Teacher Panel</div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <span id="userName"></span>
+      <button class="btn btn-secondary" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="glass-container dashboard-container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2>Your Exams</h2>
+      <button class="btn" style="width:auto;" onclick="showModal('createExamModal')">+ New Exam</button>
+    </div>
+    <div class="card-grid" id="examList">
+      <!-- Exams populated here -->
+    </div>
+  </div>
+
+  <div class="glass-container dashboard-container">
+    <h2>Bulk Operations</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Upload Students (CSV)</h3>
+        <p>Format: name,email,roll_number,password</p>
+        <input type="file" id="studentsCsv" accept=".csv" class="btn btn-secondary">
+        <button class="btn" onclick="uploadStudents()" style="margin-top:10px;">Upload Students</button>
+      </div>
+      <div class="card">
+        <h3>Upload Questions (CSV)</h3>
+        <p>Format: question,type,option1,option2,option3,option4,correct_answer</p>
+        <select id="examSelectForQuestions" class="input-group"
+          style="margin-bottom:10px; width:100%; border: 1px solid #cbd5e1; background: #fff; color: #1e293b;">
+          <option value="">Select Exam</option>
+        </select>
+        <input type="file" id="questionsCsv" accept=".csv" class="btn btn-secondary">
+        <button class="btn" onclick="uploadQuestions()" style="margin-top:10px;">Upload Questions</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-container dashboard-container">
+    <h2>Violation Logs (Proctoring)</h2>
+    <div id="violationLogsContainer">
+      <!-- Violations populated here -->
+      <p style="text-align:center; opacity:0.6;">Loading violations...</p>
+    </div>
+  </div>
+
+  <div class="glass-container dashboard-container">
+    <h2>Proctoring Snapshots</h2>
+    <div id="snapshotsContainer" class="card-grid">
+      <p style="text-align:center; opacity:0.6; width:100%">Loading snapshots...</p>
+    </div>
+  </div>
+
+  <!-- Create Exam Modal -->
+  <div id="createExamModal" class="overlay" style="display:none;">
+    <div class="glass-container auth-container" style="position:relative;">
+      <button class="modal-close-btn" onclick="hideModal('createExamModal')">&times;</button>
+      <h2>Create New Exam</h2>
+      <form id="createExamForm">
+        <div class="input-group">
+          <label>Title</label>
+          <input type="text" id="examTitle" required>
+        </div>
+        <div class="input-group">
+          <label>Subject</label>
+          <input type="text" id="examSubject" required>
+        </div>
+        <div class="input-group">
+          <label>Duration (minutes)</label>
+          <input type="number" id="examDuration" required>
+        </div>
+        <div class="input-group">
+          <label>Start Time</label>
+          <input type="datetime-local" id="examStartTime" required>
+        </div>
+        <div class="input-group">
+          <label>End Time</label>
+          <input type="datetime-local" id="examEndTime" required>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn">Create</button>
+          <button type="button" class="btn btn-secondary" onclick="hideModal('createExamModal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="viewResultsModal" class="overlay"
+    style="display:none; align-items:flex-start; padding-top:50px; overflow-y:auto;">
+    <div class="glass-container" style="position:relative; max-width:800px;">
+      <button class="modal-close-btn" style="color: #64748b;" onclick="hideModal('viewResultsModal')">&times;</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h2 style="margin:0;">Exam Results</h2>
+        <div style="display:flex; gap:10px;">
+          <button class="btn" id="downloadResultsBtn"
+            style="width:auto; padding: 0.4rem 0.8rem; font-size: 0.85rem;">Download CSV</button>
+          <button class="btn" id="downloadPDFBtn"
+            style="width:auto; padding: 0.4rem 0.8rem; font-size: 0.85rem; background: linear-gradient(135deg, #475569 0%, #1e293b 100%);">Download
+            PDF</button>
+        </div>
+      </div>
+      <div id="resultsTableContainer"></div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+
+</html>

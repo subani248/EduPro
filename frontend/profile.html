@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <div class="logo">EduPro Dashboard</div>
+    <div class="nav-content">
+      <a href="student-dashboard.html" class="nav-link-btn"><span>🏠</span> Dashboard</a>
+      <a href="playground.html" class="nav-link-btn"><span>💻</span> Playground</a>
+      <a href="profile.html" class="nav-link-btn active"><span>👤</span> Profile</a>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+
+  <div class="glass-container profile-card">
+    <img id="profilePic" src="" alt="Profile Picture" class="profile-pic">
+    <h2 id="fullName">Student Name</h2>
+
+    <div class="profile-info">
+      <div class="info-item">
+        <div class="info-label">Email</div>
+        <div id="email" class="info-value">student@example.com</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Role</div>
+        <div id="role" class="info-value">Student</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">Roll Number</div>
+        <div id="rollNumber" class="info-value">-</div>
+      </div>
+    </div>
+
+    <a href="student-dashboard.html" class="btn back-btn">Dashboard</a>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Exam</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+
+    #proctoringWarning {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(220, 38, 38, 0.95);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      z-index: 9999;
+      font-weight: 600;
+      display: none;
+      animation: fadeInOut 3s ease-in-out forwards;
+      pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+      }
+
+      10% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+      }
+    }
+  </style>
+</head>
+
+<body oncontextmenu="return false;">
+  <div id="proctoringWarning">Please keep your face visible and look at the screen</div>
+  <!-- Camera permission overlay -->
+  <div id="permissionOverlay" class="overlay">
+    <div class="glass-container" style="max-width:500px; text-align:center;">
+      <h2>Exam Restrictions</h2>
+      <p style="margin-bottom:1rem; opacity:0.9;">To ensure integrity, this exam requires:</p>
+      <ul style="text-align:left; margin-bottom:1.5rem; display:inline-block;">
+        <li>Camera Permission (Mandatory)</li>
+        <li>Fullscreen Mode</li>
+        <li>No Tab Switching (Auto-submits after 3 warnings)</li>
+        <li>No Right-click / Copy / Paste</li>
+      </ul>
+      <button class="btn" id="requestPermissionBtn">Grant Permissions & Start Exam</button>
+      <p id="permissionError" class="error-msg" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <div class="glass-container exam-container" id="examContent" style="display:none;">
+    <div class="exam-header">
+      <div>
+        <h2 id="examTitle">Loading...</h2>
+        <p id="examSubject"></p>
+      </div>
+      <div id="violation-panel"
+        style="font-size: 0.9rem; text-align: left; padding: 10px; background: rgba(255, 0, 0, 0.1); border-radius: 8px; border: 1px solid rgba(255, 0, 0, 0.2);">
+        <p><strong>Status:</strong></p>
+        <p>📷 Camera: <span id="cameraStatus" style="color: #10b981;">ON</span></p>
+        <p>👤 Face: <span id="faceStatus" style="color: #10b981;">Detected</span></p>
+        <p>⚠️ Violations: <span id="violationCount" style="color: #ef4444; font-weight: bold;">0</span> / 3</p>
+      </div>
+      <div id="timer">--:--</div>
+    </div>
+
+    <div id="questionsContainer">
+      <!-- Questions will be rendered here -->
+    </div>
+
+    <button class="btn" id="submitExamBtn" style="margin-top:20px;">Submit Exam</button>
+  </div>
+
+  <div class="glass-container exam-container" id="resultsContainer" style="display:none; text-align:center;">
+    <h2 id="resultsHeading">Exam Completed</h2>
+    <div id="resultsDetail" style="margin:20px 0; font-size:1.2rem;">
+      <!-- Scores will be here -->
+    </div>
+    <p style="opacity:0.8;">This window will automatically close in <span id="closeCountdown">10</span> seconds.</p>
+    <button class="btn" onclick="window.close()" style="margin-top:20px;">Close Now</button>
+  </div>
+
+  <div id="camera-container">
+    <video id="camera-preview" autoplay playsinline muted></video>
+    <canvas id="snapshot-canvas" style="display: none;"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/exam.js"></script>
+</body>
+
+</html>

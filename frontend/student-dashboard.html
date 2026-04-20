@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <div class="logo">EduPro Dashboard</div>
+    <div class="nav-content">
+      <a href="student-dashboard.html" class="nav-link-btn active"><span>🏠</span> Dashboard</a>
+      <a href="playground.html" class="nav-link-btn"><span>💻</span> Playground</a>
+      <a href="profile.html" class="nav-link-btn"><span>👤</span> Profile</a>
+      <span id="userName" class="user-welcome"></span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+
+  <div class="glass-container dashboard-container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2>Practice Arena</h2>
+      <a href="playground.html" class="btn" style="width:auto; text-decoration:none;">Open IDE</a>
+    </div>
+    <div class="card" style="margin-top:1rem; border-left: 4px solid #6366f1;">
+      <p>Sharpen your coding skills with our built-in Monaco IDE. Supports multiple languages!</p>
+    </div>
+  </div>
+
+  <div class="glass-container dashboard-container">
+    <h2>Available Exams</h2>
+    <div class="card-grid" id="examList">
+      <!-- Exams populated here -->
+    </div>
+  </div>
+
+  <div class="glass-container dashboard-container">
+    <h2>My Results</h2>
+    <div id="resultsTableContainer">
+      <!-- Results populated here -->
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/student.js"></script>
+</body>
+
+</html>
